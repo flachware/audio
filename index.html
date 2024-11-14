@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Web Audio API</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html, body {
+        height: 100%;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <button>Play</button>
+    <script>
+      const audioCtx = new AudioContext()
+      const button = document.querySelector('button')
+      let osc
+      let isPlaying = false
+
+      button.addEventListener('click', (e) => {
+        if (isPlaying == false) {
+          osc = audioCtx.createOscillator()
+
+          osc.type = "sine"
+          osc.frequency.value = 55
+          osc.start(audioCtx.currentTime)
+          osc.connect(audioCtx.destination)
+          isPlaying = true
+
+        } else {
+          osc.disconnect(audioCtx.destination)
+          isPlaying = false
+        }
+      })
+
+    </script>
+  </body>
+</html>
